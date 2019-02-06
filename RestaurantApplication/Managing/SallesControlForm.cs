@@ -29,7 +29,7 @@ namespace RestaurantApplication
             catch (FormatException)
             {
                 ReadWriteFiles.DeleteSoldProductsFile();
-                MessageBox.Show("An error ocurred when loading the sold products list. The list was reset.", "Internal Error");
+                MessageBox.Show("An error ocurred while loading the sold products list. The list was reset.", "Internal Error");
             }
 
             soldProductsListBox.DataSource = null;
