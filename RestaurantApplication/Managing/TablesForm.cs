@@ -82,7 +82,7 @@ namespace RestaurantApplication
             bool isValid = true;
             char[] symbols = { '^', '|' };
 
-            if (newAreaNameTextBox.TextLength < 1)
+            if (newAreaNameTextBox.TextLength < 1 || newAreaNameTextBox.TextLength > 99)
             {
                 isValid = false;
             }
@@ -223,6 +223,11 @@ namespace RestaurantApplication
                 {
                     isValid = true;
                 }
+            }
+
+            if ( Math.Abs(auxValid1-auxValid2) > 99)
+            {
+                isValid = false;
             }
 
             if((auxValid1 > auxValid2 && auxValid1 != 0 && auxValid2 != 0) || (auxValid1 == 0 && auxValid2 == 0))

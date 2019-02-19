@@ -52,7 +52,7 @@ namespace RestaurantApplication
             bool isValid = true;
             char[] symbols = { '^', '|' };
 
-            if (newCategoryNameTextBox.TextLength < 1)
+            if (newCategoryNameTextBox.TextLength < 1 || newCategoryNameTextBox.TextLength > 99)
             {
                 isValid = false;
             }
@@ -133,7 +133,7 @@ namespace RestaurantApplication
             decimal auxValid;
             char[] symbols = { '^', '|' };
 
-            if (newProductNameTextBox.TextLength < 1)
+            if (newProductNameTextBox.TextLength < 1 || newProductNameTextBox.TextLength > 99)
             {
                 isValid = false;
             }
