@@ -13,8 +13,8 @@ namespace RestaurantApplication
 {
     public partial class PayPartial : Form
     {
-        public UsedTable tableActual = new UsedTable();
-        public UsedTable tablePartial = new UsedTable();
+        public IUsedTable tableActual = new UsedTable();
+        public IUsedTable tablePartial = new UsedTable();
         private IPayPartial callingForm;
 
         public PayPartial(IPayPartial workingMenu)
@@ -23,15 +23,13 @@ namespace RestaurantApplication
             callingForm = workingMenu;
         }
 
-        public void SendData(UsedTable table)
+        public void SendData(IUsedTable table)
         {
-            tableActual.table = table.table;
-            tablePartial.table = table.table;
+            tableActual = table;
 
-            foreach (Product p in table.Products)
-            {
-                tableActual.Products.Add(p);
-            }
+            tablePartial.Id = table.Id;
+            tablePartial.NumberOfTable = table.NumberOfTable;
+            tablePartial.AreaId = table.AreaId;
             
             UpdateLists();
         }

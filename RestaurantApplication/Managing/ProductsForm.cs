@@ -17,7 +17,7 @@ namespace RestaurantApplication
         public ProductsForm()
         {
             InitializeComponent();
-            List<Category> categories = GlobalConfig.connection.ReadAllCategories();
+            List<ICategory> categories = GlobalConfig.connection.ReadAllCategories();
 
             newProductCategoryComboBox.DataSource = null;
             newProductCategoryComboBox.DataSource = categories;
@@ -30,12 +30,12 @@ namespace RestaurantApplication
             
             if (CheckValidCategoryData())
             {
-                Category category = new Category();
+                ICategory category = new Category();
                 category.Name = newCategoryNameTextBox.Text;
                 GlobalConfig.connection.AddNewCategory(category);
                 newCategoryNameTextBox.Text = "";
 
-                List<Category> categories = GlobalConfig.connection.ReadAllCategories();
+                List<ICategory> categories = GlobalConfig.connection.ReadAllCategories();
                 UpdateCategoriesComboBox(categories);
                 UpdateCategoriesList(categories);
 
@@ -67,12 +67,12 @@ namespace RestaurantApplication
 
         private void seeListCategoriesButton_Click(object sender, EventArgs e)
         {
-            List<Category> categories = GlobalConfig.connection.ReadAllCategories();
+            List<ICategory> categories = GlobalConfig.connection.ReadAllCategories();
             UpdateCategoriesList(categories);
             UpdateCategoriesComboBox(categories);
         }
 
-        private void UpdateCategoriesList(List<Category> categories)
+        private void UpdateCategoriesList(List<ICategory> categories)
         {
             productsList.DataSource = null;
             productsList.DataSource = categories;
@@ -81,7 +81,7 @@ namespace RestaurantApplication
 
         }
 
-        private void UpdateCategoriesComboBox(List<Category> categories)
+        private void UpdateCategoriesComboBox(List<ICategory> categories)
         {
             newProductCategoryComboBox.DataSource = null;
             newProductCategoryComboBox.DataSource = categories;
@@ -90,11 +90,11 @@ namespace RestaurantApplication
 
         private void seeListProductsButton_Click(object sender, EventArgs e)
         {
-            List<Product> products = GlobalConfig.connection.ReadAllProducts();
+            List<IProduct> products = GlobalConfig.connection.ReadAllProducts();
             UpdateProductsList(products);
         }
 
-        private void UpdateProductsList (List<Product> products)
+        private void UpdateProductsList (List<IProduct> products)
         {
             productsList.DataSource = null;
             productsList.DataSource = products;
@@ -117,7 +117,7 @@ namespace RestaurantApplication
                 newProductNameTextBox.Text = "";
                 newProductPriceTextBox.Text = "";
 
-                List<Product> productsByCategory = GlobalConfig.connection.ReadProductByCategory(product.Category);
+                List<IProduct> productsByCategory = GlobalConfig.connection.ReadProductByCategory(product.Category);
                 UpdateProductsList(productsByCategory);
 
             }
@@ -162,7 +162,7 @@ namespace RestaurantApplication
 
             if (selectedCategory != null)
             {
-                List<Product> productsByCategory = GlobalConfig.connection.ReadProductByCategory(selectedCategory);
+                List<IProduct> productsByCategory = GlobalConfig.connection.ReadProductByCategory(selectedCategory);
                 UpdateProductsList(productsByCategory);
             }
         }
@@ -179,14 +179,14 @@ namespace RestaurantApplication
                 {
                     GlobalConfig.connection.DeleteProduct(selected);
 
-                    List<Product> products = GlobalConfig.connection.ReadProductByCategory(selected.Category);
+                    List<IProduct> products = GlobalConfig.connection.ReadProductByCategory(selected.Category);
                     UpdateProductsList(products); 
                 }
             }
-            else if (productsList.SelectedItem is Category)
+            else if (productsList.SelectedItem is ICategory)
             {
-                Category selected = (Category)productsList.SelectedItem;
-                List<Product> products = GlobalConfig.connection.ReadProductByCategory(selected);
+                ICategory selected = (ICategory)productsList.SelectedItem;
+                List<IProduct> products = GlobalConfig.connection.ReadProductByCategory(selected);
                 int amountOfProducts = products.Count;
 
                 DialogResult result = MessageBox.Show($"Are you sure you want to delete the {selected.Name} category and all its {amountOfProducts} products?",
@@ -196,7 +196,7 @@ namespace RestaurantApplication
                 {
                     GlobalConfig.connection.DeleteCategoryAndAllItsProducts(selected);
 
-                    List<Category> categories = GlobalConfig.connection.ReadAllCategories();
+                    List<ICategory> categories = GlobalConfig.connection.ReadAllCategories();
                     UpdateCategoriesList(categories);
                     UpdateCategoriesComboBox(categories); 
                 }

@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace CodeLibrary.Models
 {
-    public class Table
+    public class Table : ITable
     {
         public int Id { get; set; }
 
         public int NumberOfTable { get; set; }
 
-        public AreaOfTables Area { get; set; }
+        public IAreaOfTables Area { get; set; }
 
         public int AreaId { get; set; }
 

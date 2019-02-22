@@ -18,7 +18,7 @@ namespace RestaurantApplication
         {
             InitializeComponent();
 
-            List<AreaOfTables> areas = GlobalConfig.connection.ReadAllAreas();
+            List<IAreaOfTables> areas = GlobalConfig.connection.ReadAllAreas();
 
             newTableAreaComboBox.DataSource = null;
             newTableAreaComboBox.DataSource = areas;
@@ -31,12 +31,12 @@ namespace RestaurantApplication
             {
                 if (CheckLimitOfAreas())
                 {
-                    AreaOfTables area = new AreaOfTables();
+                    IAreaOfTables area = new AreaOfTables();
                     area.AreaName = newAreaNameTextBox.Text;
                     GlobalConfig.connection.AddNewAreaOfTables(area);
                     newAreaNameTextBox.Text = "";
 
-                    List<AreaOfTables> areas = GlobalConfig.connection.ReadAllAreas();
+                    List<IAreaOfTables> areas = GlobalConfig.connection.ReadAllAreas();
                     UpdateAreasComboBox(areas);
                     UpdateAreasList(areas); 
                 }
@@ -52,7 +52,7 @@ namespace RestaurantApplication
             }
         }
 
-        private void UpdateAreasList(List<AreaOfTables> areas)
+        private void UpdateAreasList(List<IAreaOfTables> areas)
         {
             tablesList.DataSource = null;
             tablesList.DataSource = areas;
@@ -60,14 +60,14 @@ namespace RestaurantApplication
             tablesAreasLabel.Text = "Areas of Tables";
         }
 
-        private void UpdateAreasComboBox(List<AreaOfTables> areas)
+        private void UpdateAreasComboBox(List<IAreaOfTables> areas)
         {
             newTableAreaComboBox.DataSource = null;
             newTableAreaComboBox.DataSource = areas;
             newTableAreaComboBox.DisplayMember = "AreaName";
         }
 
-        private void UpdateTablesList(List<Table> tables)
+        private void UpdateTablesList(List<ITable> tables)
         {
             tables = tables.OrderBy(x => x.NumberOfTable).ToList();
 
@@ -100,7 +100,7 @@ namespace RestaurantApplication
             bool isValid = false;
             int count = 0;
 
-            List<AreaOfTables> areas = GlobalConfig.connection.ReadAllAreas();
+            List<IAreaOfTables> areas = GlobalConfig.connection.ReadAllAreas();
             count = areas.Count;
 
             if (count < 10)
@@ -113,7 +113,7 @@ namespace RestaurantApplication
 
         private void seeListAreasButton_Click(object sender, EventArgs e)
         {
-            List<AreaOfTables> areas = GlobalConfig.connection.ReadAllAreas();
+            List<IAreaOfTables> areas = GlobalConfig.connection.ReadAllAreas();
             UpdateAreasList(areas);
             UpdateAreasComboBox(areas);
         }
@@ -122,7 +122,7 @@ namespace RestaurantApplication
         {
             if (CheckValidTablesData())
             {
-                List<Table> tables = new List<Table>();
+                List<ITable> tables = new List<ITable>();
                 int first = 0;
                 int last = 0;
 
@@ -156,7 +156,7 @@ namespace RestaurantApplication
                     newTableFromTextBox.Text = "";
                     newTableToTextBox.Text = "";
 
-                    List<Table> productsByCategory = GlobalConfig.connection.ReadTablesByArea((tables.Where(x => x.NumberOfTable == first).FirstOrDefault()).Area);
+                    List<ITable> productsByCategory = GlobalConfig.connection.ReadTablesByArea((tables.Where(x => x.NumberOfTable == first).FirstOrDefault()).Area);
                     UpdateTablesList(productsByCategory); 
                 }
                 else
@@ -174,7 +174,7 @@ namespace RestaurantApplication
         private bool CheckIfTablesAreNew(int first, int last)
         {
             bool tablesAreNew = false;
-            List<Table> allTables = new List<Table>();
+            List<ITable> allTables = new List<ITable>();
             allTables = GlobalConfig.connection.ReadAllTables();
 
             int j = 0;
@@ -249,14 +249,14 @@ namespace RestaurantApplication
 
             if (selectedArea != null)
             {
-                List<Table> tablesByArea = GlobalConfig.connection.ReadTablesByArea(selectedArea);
+                List<ITable> tablesByArea = GlobalConfig.connection.ReadTablesByArea(selectedArea);
                 UpdateTablesList(tablesByArea);
             }
         }
 
         private void seeListTablesButton_Click(object sender, EventArgs e)
         {
-            List<Table> tables = GlobalConfig.connection.ReadAllTables();
+            List<ITable> tables = GlobalConfig.connection.ReadAllTables();
             UpdateTablesList(tables);
         }
 
@@ -272,14 +272,14 @@ namespace RestaurantApplication
                 {
                     GlobalConfig.connection.DeleteTable(selected);
 
-                    List<Table> tables = GlobalConfig.connection.ReadTablesByArea(selected.Area);
+                    List<ITable> tables = GlobalConfig.connection.ReadTablesByArea(selected.Area);
                     UpdateTablesList(tables);
                 }
             }
             else if (tablesList.SelectedItem is AreaOfTables)
             {
                 AreaOfTables selected = (AreaOfTables)tablesList.SelectedItem;
-                List<Table> products = GlobalConfig.connection.ReadTablesByArea(selected);
+                List<ITable> products = GlobalConfig.connection.ReadTablesByArea(selected);
                 int amountOfTables = products.Count;
 
                 DialogResult result = MessageBox.Show($"Are you sure you want to delete the {selected.AreaName} area and all its {amountOfTables} tables?",
@@ -289,7 +289,7 @@ namespace RestaurantApplication
                 {
                     GlobalConfig.connection.DeleteAreaAndAllItsTables(selected);
 
-                    List<AreaOfTables> areas = GlobalConfig.connection.ReadAllAreas();
+                    List<IAreaOfTables> areas = GlobalConfig.connection.ReadAllAreas();
                     UpdateAreasList(areas);
                     UpdateAreasComboBox(areas);
                 }

@@ -13,7 +13,7 @@ namespace CodeLibrary.DataAccess
 {
     public class SQLServerDataAccess : IDataConnection
     {
-        public void AddNewAreaOfTables(AreaOfTables area)
+        public void AddNewAreaOfTables(IAreaOfTables area)
         {
             using (IDbConnection db = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLServer"].ConnectionString))
             {
@@ -22,7 +22,7 @@ namespace CodeLibrary.DataAccess
             }
         }
 
-        public void AddNewCategory(Category category)
+        public void AddNewCategory(ICategory category)
         {
             using (IDbConnection db = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLServer"].ConnectionString))
             {
@@ -31,7 +31,7 @@ namespace CodeLibrary.DataAccess
             }
         }
 
-        public void AddNewProduct(Product product)
+        public void AddNewProduct(IProduct product)
         {
             using (IDbConnection db = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLServer"].ConnectionString))
             {
@@ -40,7 +40,7 @@ namespace CodeLibrary.DataAccess
             }
         }
 
-        public void AddNewTables(List<Table> tables)
+        public void AddNewTables(List<ITable> tables)
         {
             using (IDbConnection db = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLServer"].ConnectionString))
             {
@@ -53,7 +53,7 @@ namespace CodeLibrary.DataAccess
             }
         }
 
-        public void DeleteAreaAndAllItsTables(AreaOfTables area)
+        public void DeleteAreaAndAllItsTables(IAreaOfTables area)
         {
             using (IDbConnection db = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLServer"].ConnectionString))
             {
@@ -68,7 +68,7 @@ namespace CodeLibrary.DataAccess
             }
         }
 
-        public void DeleteCategoryAndAllItsProducts(Category category)
+        public void DeleteCategoryAndAllItsProducts(ICategory category)
         {
             using (IDbConnection db = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLServer"].ConnectionString))
             {
@@ -83,7 +83,7 @@ namespace CodeLibrary.DataAccess
             }
         }
 
-        public void DeleteProduct(Product product)
+        public void DeleteProduct(IProduct product)
         {
             using (IDbConnection db = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLServer"].ConnectionString))
             {
@@ -94,7 +94,7 @@ namespace CodeLibrary.DataAccess
             }
         }
 
-        public void DeleteTable(Table table)
+        public void DeleteTable(ITable table)
         {
             using (IDbConnection db = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLServer"].ConnectionString))
             {
@@ -105,9 +105,10 @@ namespace CodeLibrary.DataAccess
             }
         }
 
-        public List<AreaOfTables> ReadAllAreas()
+        public List<IAreaOfTables> ReadAllAreas()
         {
-            List<AreaOfTables> list = new List<AreaOfTables>();
+            IEnumerable<IAreaOfTables> list = new List<IAreaOfTables>();
+            List<IAreaOfTables> output = new List<IAreaOfTables>();
 
             using (IDbConnection db = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLServer"].ConnectionString))
             {
@@ -115,12 +116,18 @@ namespace CodeLibrary.DataAccess
                 list = db.Query<AreaOfTables>(readAreas).ToList();
             }
 
-            return list;
+            foreach (IAreaOfTables area in list)
+            {
+                output.Add(area);
+            }
+
+            return output;
         }
 
-        public List<Category> ReadAllCategories()
+        public List<ICategory> ReadAllCategories()
         {
-            List<Category> list = new List<Category>();
+            IEnumerable<ICategory> list = new List<ICategory>();
+            List<ICategory> output = new List<ICategory>();
 
             using (IDbConnection db = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLServer"].ConnectionString))
             {
@@ -128,12 +135,18 @@ namespace CodeLibrary.DataAccess
                 list = db.Query<Category>(readCategories).ToList();  
             }
 
-            return list;
+            foreach (ICategory category in list)
+            {
+                output.Add(category);
+            }
+
+            return output;
         }
 
-        public List<Product> ReadAllProducts()
+        public List<IProduct> ReadAllProducts()
         {
-            List<Product> listP = new List<Product>();
+            IEnumerable<IProduct> list = new List<IProduct>();
+            List<IProduct> output = new List<IProduct>();
 
             using (IDbConnection db = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLServer"].ConnectionString))
             {
@@ -141,21 +154,27 @@ namespace CodeLibrary.DataAccess
                 string readCategories = "SELECT * FROM [dbo].[Categories] Where [id] = @CategoryID";
                 DynamicParameters parameter = new DynamicParameters();
 
-                listP = db.Query<Product>(readProducts).ToList();
+                list = db.Query<Product>(readProducts).ToList();
 
-                foreach (Product p in listP)
+                foreach (Product p in list)
                 {
                     parameter.Add("@CategoryId", p.CategoryId);
                     p.Category = db.Query<Category>(readCategories, parameter).FirstOrDefault();
                 }
             }
 
-            return listP;
+            foreach (IProduct product in list)
+            {
+                output.Add(product);
+            }
+
+            return output;
         }
 
-        public List<Table> ReadAllTables()
+        public List<ITable> ReadAllTables()
         {
-            List<Table> listT = new List<Table>();
+            IEnumerable<ITable> list = new List<ITable>();
+            List<ITable> output = new List<ITable>();
 
             using (IDbConnection db = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLServer"].ConnectionString))
             {
@@ -163,21 +182,27 @@ namespace CodeLibrary.DataAccess
                 string readAreas = "SELECT * FROM [dbo].[Areas] Where [id] = @AreaId";
                 DynamicParameters parameter = new DynamicParameters();
 
-                listT = db.Query<Table>(readTables).ToList();
+                list = db.Query<Table>(readTables).ToList();
 
-                foreach (Table t in listT)
+                foreach (Table t in list)
                 {
                     parameter.Add("@AreaId", t.AreaId);
                     t.Area = db.Query<AreaOfTables>(readAreas, parameter).FirstOrDefault();
                 }
             }
 
-            return listT;
+            foreach (ITable table in list)
+            {
+                output.Add(table);
+            }
+
+            return output;
         }
 
-        public List<Product> ReadProductByCategory(Category category)
+        public List<IProduct> ReadProductByCategory(ICategory category)
         {
-            List<Product> list = new List<Product>();
+            IEnumerable<IProduct> list = new List<IProduct>();
+            List<IProduct> output = new List<IProduct>();
 
             using (IDbConnection db = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLServer"].ConnectionString))
             {
@@ -185,20 +210,25 @@ namespace CodeLibrary.DataAccess
                 DynamicParameters parameter = new DynamicParameters();
 
                 parameter.Add("@idCategory", category.Id);
-                list = db.Query<Product>(readProducts, parameter).ToList();
-
-                foreach (Product p in list)
-                {
-                    p.Category = category;
-                }
+                list = db.Query<Product>(readProducts, parameter).ToList();  
+            }
+            foreach (Product p in list)
+            {
+                p.Category = category;
             }
 
-            return list;
+            foreach (IProduct product in list)
+            {
+                output.Add(product);
+            }
+
+            return output;
         }
 
-        public List<Table> ReadTablesByArea(AreaOfTables area)
+        public List<ITable> ReadTablesByArea(IAreaOfTables area)
         {
-            List<Table> list = new List<Table>();
+            List<ITable> output = new List<ITable>();
+            IEnumerable<ITable> list = new List<ITable>();
 
             using (IDbConnection db = new SqlConnection(ConfigurationManager.ConnectionStrings["SQLServer"].ConnectionString))
             {
@@ -207,13 +237,19 @@ namespace CodeLibrary.DataAccess
 
                 parameter.Add("@idArea", area.Id);
                 list = db.Query<Table>(readTables, parameter).ToList();
-
-                foreach (Table p in list)
-                {
-                    p.Area = area;
-                }
             }
-            return list;
+
+            foreach (Table p in list)
+            {
+                p.Area = area;
+            }
+
+            foreach (ITable table in list)
+            {
+                output.Add(table);
+            }
+
+            return output;
         }
     }
 }

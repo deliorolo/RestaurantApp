@@ -6,15 +6,13 @@ using System.Threading.Tasks;
 
 namespace CodeLibrary.Models
 {
-    public class UsedTable
+    public class UsedTable :Table,IUsedTable
     {
-        public Table table { get; set; }
-
-        public List<Product> Products { get; set; }
+        public List<IProduct> Products { get; set; }
 
         public UsedTable()
         {
-            Products = new List<Product>();
+            Products = new List<IProduct>();
         }
     }
 }

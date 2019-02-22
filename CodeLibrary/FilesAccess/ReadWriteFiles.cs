@@ -10,10 +10,10 @@ namespace CodeLibrary.FilesAccess
 {
     public static class ReadWriteFiles
     {
-        public static List<Product> ReadSoldProductsFromFile()
+        public static List<IProduct> ReadSoldProductsFromFile()
         {
             bool fileExist = false;
-            List<Product> soldProducts = new List<Product>();
+            List<IProduct> soldProducts = new List<IProduct>();
 
             fileExist = File.Exists(AppDomain.CurrentDomain.BaseDirectory + @"\ProductsSold.txt");
 
@@ -24,8 +24,8 @@ namespace CodeLibrary.FilesAccess
 
                 for (int i = 0; i < lines.Length - 1; i++)
                 {
-                    Product addingProduct = new Product();
-                    Category addingCategory = new Category();
+                    IProduct addingProduct = new Product();
+                    ICategory addingCategory = new Category();
 
                     string[] elements = lines[i].Split('|');
 
@@ -102,7 +102,7 @@ namespace CodeLibrary.FilesAccess
             File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"\DailyIncome.csv", sb.ToString(), Encoding.UTF8);
         }
 
-        public static void WriteSoldProductsToFile(List<Product> soldProducts)
+        public static void WriteSoldProductsToFile(List<IProduct> soldProducts)
         {
             StringBuilder sb = new StringBuilder();
 
@@ -135,7 +135,7 @@ namespace CodeLibrary.FilesAccess
             File.WriteAllText(AppDomain.CurrentDomain.BaseDirectory + @"\ProductsSold.txt", sb.ToString());
         }
 
-        public static void WriteProductsOnTableToFile(List<UsedTable> tablesInUse)
+        public static void WriteProductsOnTableToFile(List<IUsedTable> tablesInUse)
         {
             StringBuilder sb = new StringBuilder();
 
@@ -143,15 +143,15 @@ namespace CodeLibrary.FilesAccess
             {
                 if (t.Products.Count > 0)
                 {
-                    sb.Append(t.table.Id);
+                    sb.Append(t.Id);
                     sb.Append("^");
-                    sb.Append(t.table.NumberOfTable);
+                    sb.Append(t.NumberOfTable);
                     sb.Append("^");
-                    sb.Append(t.table.Area.AreaName);
+                    sb.Append(t.Area.AreaName);
                     sb.Append("^");
-                    sb.Append(t.table.AreaId);
+                    sb.Append(t.AreaId);
                     sb.Append("^");
-                    sb.Append(t.table.ShowOccupied);
+                    sb.Append(t.ShowOccupied);
                     sb.Append("|");
 
                     foreach (Product p in t.Products)
@@ -177,7 +177,7 @@ namespace CodeLibrary.FilesAccess
 
         }
 
-        public static void ReadProductsOnTableFromFile(List<UsedTable> tablesInUse)
+        public static void ReadProductsOnTableFromFile(List<IUsedTable> tablesInUse)
         {
             bool fileExist = false;
 
@@ -191,28 +191,26 @@ namespace CodeLibrary.FilesAccess
 
                 for (int i = 0; i < lines.Length - 1; i++)
                 {
-                    Table addingTable = new Table();
-                    AreaOfTables addingArea = new AreaOfTables();
-                    UsedTable addingFullTable = new UsedTable();
+                    IAreaOfTables addingArea = new AreaOfTables();
+                    IUsedTable addingFullTable = new UsedTable();
 
                     string[] groups = lines[i].Split('|');
 
                     string[] elements = groups[0].Split('^');
 
-                    addingTable.Id = int.Parse(elements[0]);
-                    addingTable.NumberOfTable = int.Parse(elements[1]);
+                    addingFullTable.Id = int.Parse(elements[0]);
+                    addingFullTable.NumberOfTable = int.Parse(elements[1]);
                     addingArea.AreaName = elements[2];
                     addingArea.Id = int.Parse(elements[3]);
-                    addingTable.AreaId = int.Parse(elements[3]);
-                    addingTable.ShowOccupied = elements[4];
+                    addingFullTable.AreaId = int.Parse(elements[3]);
+                    addingFullTable.ShowOccupied = elements[4];
 
-                    addingTable.Area = addingArea;
-                    addingFullTable.table = addingTable;
+                    addingFullTable.Area = addingArea;
 
                     for (int j = 1; j < groups.Length - 1; j++)
                     {
-                        Product addingProduct = new Product();
-                        Category addingCategory = new Category();
+                        IProduct addingProduct = new Product();
+                        ICategory addingCategory = new Category();
 
                         elements = groups[j].Split('^');
 
@@ -233,7 +231,7 @@ namespace CodeLibrary.FilesAccess
             }
         }
 
-        public static void AddFileOfTodaySoldProducts(List<Product> soldProducts, DateTime time)
+        public static void AddFileOfTodaySoldProducts(List<IProduct> soldProducts, DateTime time)
         {
             Directory.CreateDirectory(AppDomain.CurrentDomain.BaseDirectory + @"\Products Sold List");
 

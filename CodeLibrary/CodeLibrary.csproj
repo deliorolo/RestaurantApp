@@ -58,6 +58,11 @@
     <Compile Include="FilesAccess\ReadWriteFiles.cs" />
     <Compile Include="Models\AreaOfTables.cs" />
     <Compile Include="Models\Category.cs" />
+    <Compile Include="Models\IAreaOfTables.cs" />
+    <Compile Include="Models\ICategory.cs" />
+    <Compile Include="Models\IProduct.cs" />
+    <Compile Include="Models\ITable.cs" />
+    <Compile Include="Models\IUsedTable.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\Table.cs" />
     <Compile Include="Models\UsedTable.cs" />

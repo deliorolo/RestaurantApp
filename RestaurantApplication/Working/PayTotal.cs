@@ -13,7 +13,7 @@ namespace RestaurantApplication
 {
     public partial class PayTotal : Form
     {
-        public UsedTable tableActual = new UsedTable();
+        public IUsedTable tableActual = new UsedTable();
         private IPayTotal callingForm;
 
         public PayTotal(IPayTotal workingMenu)
@@ -22,7 +22,7 @@ namespace RestaurantApplication
             callingForm = workingMenu;
         }
 
-        public void SendData(UsedTable table)
+        public void SendData(IUsedTable table)
         {
             decimal total = 0;
             this.tableActual = table;

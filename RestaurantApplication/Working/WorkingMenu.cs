@@ -16,12 +16,12 @@ namespace RestaurantApplication
 {
     public partial class WorkingMenu : Form, IPayTotal, IPayPartial, ICustomizeForm
     {
-        List<Category> categories = new List<Category>();
-        List<AreaOfTables> areas = new List<AreaOfTables>();
-        List<UsedTable> tablesInUse = new List<UsedTable>();
-        List<Table> tables = new List<Table>();
-        List<Product> soldProducts = new List<Product>();
-        Table selectedTable = new Table();
+        List<ICategory> categories = new List<ICategory>();
+        List<IAreaOfTables> areas = new List<IAreaOfTables>();
+        List<IUsedTable> tablesInUse = new List<IUsedTable>();
+        List<ITable> tables = new List<ITable>();
+        List<IProduct> soldProducts = new List<IProduct>();
+        ITable selectedTable = new Table();
 
         private PayTotal newFormPayTotal = null;
         private PayPartial newFormPayPartial = null;
@@ -232,27 +232,27 @@ namespace RestaurantApplication
             tablesListBox.Visible = true;
         }
 
-        private void DisplayProductsInList(List<Product> products)
+        private void DisplayProductsInList(List<IProduct> products)
         {
             productsListBox.DataSource = null;
             productsListBox.DataSource = products;
             productsListBox.DisplayMember = "DisplayText";
             productsListBox.Visible = true;
 
-            if (tablesListBox.DataSource is List<Product> && productsListBox.Items.Count > 0 && tablesListBox.Visible == true)
+            if (tablesListBox.DataSource is List<IProduct> && productsListBox.Items.Count > 0 && tablesListBox.Visible == true)
             {
                 addButton.Enabled = true;
                 customizeButton.Enabled = true;
             }
         }
 
-        private void ShowIfTablesAreOccupied(List<Table> tables)
+        private void ShowIfTablesAreOccupied(List<ITable> tables)
         {
             foreach (UsedTable t in tablesInUse)
             {
-                if (t.table.ShowOccupied.Length > 0 && tables.Where(x => x.NumberOfTable == t.table.NumberOfTable).FirstOrDefault() != null)
+                if (t.ShowOccupied.Length > 0 && tables.Where(x => x.NumberOfTable == t.NumberOfTable).FirstOrDefault() != null)
                 {
-                    (tables.Where(x => x.NumberOfTable == t.table.NumberOfTable).FirstOrDefault()).ShowOccupied = "Occupied";
+                    (tables.Where(x => x.NumberOfTable == t.NumberOfTable).FirstOrDefault()).ShowOccupied = "Occupied";
                 }
             }
         }
@@ -371,7 +371,7 @@ namespace RestaurantApplication
         {
             HideAllCategoryButtons();
 
-            List<Product> products = new List<Product>();
+            List<IProduct> products = new List<IProduct>();
 
             products = GlobalConfig.connection.ReadProductByCategory(categories[(pageCategories*10-10)]);
 
@@ -382,7 +382,7 @@ namespace RestaurantApplication
         {
             HideAllCategoryButtons();
 
-            List<Product> products = new List<Product>();
+            List<IProduct> products = new List<IProduct>();
 
             products = GlobalConfig.connection.ReadProductByCategory(categories[(pageCategories * 10 - 10)+1]);
 
@@ -393,7 +393,7 @@ namespace RestaurantApplication
         {
             HideAllCategoryButtons();
 
-            List<Product> products = new List<Product>();
+            List<IProduct> products = new List<IProduct>();
 
             products = GlobalConfig.connection.ReadProductByCategory(categories[(pageCategories * 10 - 10) + 2]);
 
@@ -404,7 +404,7 @@ namespace RestaurantApplication
         {
             HideAllCategoryButtons();
 
-            List<Product> products = new List<Product>();
+            List<IProduct> products = new List<IProduct>();
 
             products = GlobalConfig.connection.ReadProductByCategory(categories[(pageCategories * 10 - 10) + 3]);
 
@@ -415,7 +415,7 @@ namespace RestaurantApplication
         {
             HideAllCategoryButtons();
 
-            List<Product> products = new List<Product>();
+            List<IProduct> products = new List<IProduct>();
 
             products = GlobalConfig.connection.ReadProductByCategory(categories[(pageCategories * 10 - 10) + 4]);
 
@@ -426,7 +426,7 @@ namespace RestaurantApplication
         {
             HideAllCategoryButtons();
 
-            List<Product> products = new List<Product>();
+            List<IProduct> products = new List<IProduct>();
 
             products = GlobalConfig.connection.ReadProductByCategory(categories[(pageCategories * 10 - 10) + 5]);
 
@@ -437,7 +437,7 @@ namespace RestaurantApplication
         {
             HideAllCategoryButtons();
 
-            List<Product> products = new List<Product>();
+            List<IProduct> products = new List<IProduct>();
 
             products = GlobalConfig.connection.ReadProductByCategory(categories[(pageCategories * 10 - 10) + 6]);
 
@@ -448,7 +448,7 @@ namespace RestaurantApplication
         {
             HideAllCategoryButtons();
 
-            List<Product> products = new List<Product>();
+            List<IProduct> products = new List<IProduct>();
 
             products = GlobalConfig.connection.ReadProductByCategory(categories[(pageCategories * 10 - 10) + 7]);
 
@@ -459,7 +459,7 @@ namespace RestaurantApplication
         {
             HideAllCategoryButtons();
 
-            List<Product> products = new List<Product>();
+            List<IProduct> products = new List<IProduct>();
 
             products = GlobalConfig.connection.ReadProductByCategory(categories[(pageCategories * 10 - 10) + 8]);
 
@@ -470,7 +470,7 @@ namespace RestaurantApplication
         {
             HideAllCategoryButtons();
 
-            List<Product> products = new List<Product>();
+            List<IProduct> products = new List<IProduct>();
 
             products = GlobalConfig.connection.ReadProductByCategory(categories[(pageCategories * 10 - 10) + 9]);
 
@@ -500,14 +500,15 @@ namespace RestaurantApplication
         {
             int numberOfTable = selectedTable.NumberOfTable;
 
-            UsedTable fullTable = new UsedTable();
+            IUsedTable fullTable = new UsedTable();
 
-            fullTable = tablesInUse.Where(x => x.table.NumberOfTable == numberOfTable).FirstOrDefault();
+            fullTable = tablesInUse.Where(x => x.NumberOfTable == numberOfTable).FirstOrDefault();
 
             tablesInUse.Remove(fullTable);
             fullTable.Products.Add((Product)productsListBox.SelectedItem);
 
-            fullTable.table.ShowOccupied = "Occupied";
+            fullTable.ShowOccupied = "Occupied";
+            tables.Where(x => x.Id == fullTable.Id).FirstOrDefault().ShowOccupied = "Occupied";
 
             tablesInUse.Add(fullTable);
 
@@ -532,20 +533,20 @@ namespace RestaurantApplication
 
         private void returnButton_Click(object sender, EventArgs e)
         {
-            if (tablesListBox.DataSource is List<Table>)
+            if (tablesListBox.DataSource is List<ITable>)
             {
                 tablesListBox.Visible = false;
                 SetAreasMenu();
             }
-            else if (tablesListBox.DataSource is List<Product>)
+            else if (tablesListBox.DataSource is List<IProduct>)
             {
                 DisplayTablesInList();
 
-                if (tablesInUse.Where(x => x.table.NumberOfTable == selectedTable.NumberOfTable).FirstOrDefault() != null)
+                if (tablesInUse.Where(x => x.NumberOfTable == selectedTable.NumberOfTable).FirstOrDefault() != null)
                 {
-                    if ((tablesInUse.Where(x => x.table.NumberOfTable == selectedTable.NumberOfTable).FirstOrDefault()).Products.Count < 1)
+                    if ((tablesInUse.Where(x => x.NumberOfTable == selectedTable.NumberOfTable).FirstOrDefault()).Products.Count < 1)
                     {
-                        tablesInUse.Remove((tablesInUse.Where(x => x.table.NumberOfTable == selectedTable.NumberOfTable).FirstOrDefault()));
+                        tablesInUse.Remove((tablesInUse.Where(x => x.NumberOfTable == selectedTable.NumberOfTable).FirstOrDefault()));
                     } 
                 }
             }
@@ -559,7 +560,7 @@ namespace RestaurantApplication
         {
             int numberOfTable = selectedTable.NumberOfTable;
 
-            UsedTable table = tablesInUse.Where(x => x.table.NumberOfTable == numberOfTable).FirstOrDefault();
+            IUsedTable table = tablesInUse.Where(x => x.NumberOfTable == numberOfTable).FirstOrDefault();
 
             newFormPayTotal = new PayTotal(this);
             newFormPayTotal.SendData(table);
@@ -574,7 +575,7 @@ namespace RestaurantApplication
         {
             int numberOfTable = selectedTable.NumberOfTable;
 
-            UsedTable table = tablesInUse.Where(x => x.table.NumberOfTable == numberOfTable).FirstOrDefault();
+            IUsedTable table = tablesInUse.Where(x => x.NumberOfTable == numberOfTable).FirstOrDefault();
 
             newFormPayPartial = new PayPartial(this);
             newFormPayPartial.SendData(table);
@@ -587,20 +588,25 @@ namespace RestaurantApplication
 
         private void tablesListBox_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            if (tablesListBox.SelectedItem is Table)
+            if (tablesListBox.SelectedItem is ITable)
             {
                 selectedTable = (Table)tablesListBox.SelectedItem;
 
                 tablesListBox.DataSource = null;
 
-                if (tablesInUse.Where(x => x.table.NumberOfTable == selectedTable.NumberOfTable).FirstOrDefault() == null)
+                if (tablesInUse.Where(x => x.NumberOfTable == selectedTable.NumberOfTable).FirstOrDefault() == null)
                 {
-                    UsedTable fullTable = new UsedTable();
-                    fullTable.table = selectedTable;
+                    IUsedTable fullTable = new UsedTable();
+                    fullTable.Id = selectedTable.Id;
+                    fullTable.NumberOfTable = selectedTable.NumberOfTable;
+                    fullTable.ShowOccupied = selectedTable.ShowOccupied;
+                    fullTable.Area = selectedTable.Area;
+                    fullTable.AreaId = selectedTable.AreaId;
+
                     tablesInUse.Add(fullTable);
                 }
 
-                tablesListBox.DataSource = tablesInUse.Where(x => x.table.NumberOfTable == selectedTable.NumberOfTable).FirstOrDefault().Products;
+                tablesListBox.DataSource = tablesInUse.Where(x => x.NumberOfTable == selectedTable.NumberOfTable).FirstOrDefault().Products;
                 tablesListBox.DisplayMember = "DisplayText";
 
                 if (productsListBox.Items.Count > 0)
@@ -609,7 +615,7 @@ namespace RestaurantApplication
                     customizeButton.Enabled = true;
                 }
 
-                if (tablesListBox.SelectedItem is Product)
+                if (tablesListBox.SelectedItem is IProduct)
                 {
                     removeItemButton.Enabled = true;
                 }
@@ -618,14 +624,14 @@ namespace RestaurantApplication
 
         private void tablesListBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (tablesListBox.DataSource is List<Table>)
+            if (tablesListBox.DataSource is List<ITable>)
             {
                 int numberOfTable = 0;
 
                 selectedTable = (Table)tablesListBox.SelectedItem;
                 numberOfTable = selectedTable.NumberOfTable;
 
-                if (tablesInUse.Where(x => x.table.NumberOfTable == numberOfTable).FirstOrDefault() != null)
+                if (tablesInUse.Where(x => x.NumberOfTable == numberOfTable).FirstOrDefault() != null)
                 {
                     payAllButton.Enabled = true;
                     payPartialButton.Enabled = true;
@@ -636,7 +642,7 @@ namespace RestaurantApplication
                     payPartialButton.Enabled = false;
                 }
             }
-            else if (tablesListBox.SelectedItem is Product)
+            else if (tablesListBox.SelectedItem is IProduct)
             {
                 removeItemButton.Enabled = true;
             }
@@ -656,13 +662,13 @@ namespace RestaurantApplication
 
         private void removeItemButton_Click(object sender, EventArgs e)
         {
-            if (tablesListBox.SelectedItem is Product)
+            if (tablesListBox.SelectedItem is IProduct)
             {
                 int numberOfTable = selectedTable.NumberOfTable;
 
-                UsedTable fullTable = new UsedTable();
+                IUsedTable fullTable = new UsedTable();
 
-                fullTable = tablesInUse.Where(x => x.table.NumberOfTable == numberOfTable).FirstOrDefault();
+                fullTable = tablesInUse.Where(x => x.NumberOfTable == numberOfTable).FirstOrDefault();
 
                 tablesInUse.Remove(fullTable);
                 fullTable.Products.Remove((Product)tablesListBox.SelectedItem);
@@ -713,16 +719,16 @@ namespace RestaurantApplication
             {
                 soldProducts.Add(p);
                 tablesInUse.Where(x =>
-                x.table.NumberOfTable == newFormPayPartial.tablePartial.table.NumberOfTable).
+                x.NumberOfTable == newFormPayPartial.tablePartial.NumberOfTable).
                     FirstOrDefault().Products.Remove(p);
             }
 
             if (tablesInUse.Where(x =>
-                x.table.NumberOfTable == newFormPayPartial.tablePartial.table.NumberOfTable).
+                x.NumberOfTable == newFormPayPartial.tablePartial.NumberOfTable).
                     FirstOrDefault().Products.Count == 0)
             {
                 tablesInUse.Remove(tablesInUse.Where(x =>
-                x.table.NumberOfTable == newFormPayPartial.tablePartial.table.NumberOfTable).
+                x.NumberOfTable == newFormPayPartial.tablePartial.NumberOfTable).
                 FirstOrDefault());
             }
 
@@ -744,8 +750,8 @@ namespace RestaurantApplication
         {
             int numberOfTable = selectedTable.NumberOfTable;
 
-            UsedTable fullTable = new UsedTable();
-            Product modifiedProduct = new Product();
+            IUsedTable fullTable = new UsedTable();
+            IProduct modifiedProduct = new Product();
 
             modifiedProduct.Id = ((Product)productsListBox.SelectedItem).Id;
             modifiedProduct.Category = ((Product)productsListBox.SelectedItem).Category;
@@ -754,7 +760,7 @@ namespace RestaurantApplication
             modifiedProduct.Price = newFormCustomize.productInForm.Price;
             modifiedProduct.Detail = newFormCustomize.productInForm.Detail;
 
-            fullTable = tablesInUse.Where(x => x.table.NumberOfTable == numberOfTable).FirstOrDefault();
+            fullTable = tablesInUse.Where(x => x.NumberOfTable == numberOfTable).FirstOrDefault();
 
             tablesInUse.Remove(fullTable);
 
@@ -763,7 +769,7 @@ namespace RestaurantApplication
                 fullTable.Products.Add(modifiedProduct);
             }
 
-            fullTable.table.ShowOccupied = "Occupied";
+            fullTable.ShowOccupied = "Occupied";
 
             tablesInUse.Add(fullTable);
 

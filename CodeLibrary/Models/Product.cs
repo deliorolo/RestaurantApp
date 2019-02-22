@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace CodeLibrary.Models
 {
-    public class Product
+    public class Product : IProduct
     {
         public int Id { get; set; }
 
         public string Name { get; set; }
 
-        public Category Category { get; set; }
+        public ICategory Category { get; set; }
 
         public int CategoryId { get; set; }
 

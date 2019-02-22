@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CodeLibrary.Models
 {
-    public class AreaOfTables
+    public class AreaOfTables : IAreaOfTables
     {
         public int Id { get; set; }
 

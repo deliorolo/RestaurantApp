@@ -9,21 +9,21 @@ namespace CodeLibrary.DataAccess
 {
     public interface IDataConnection
     {
-        void AddNewCategory(Category category);
-        void AddNewProduct(Product product);
-        List<Category> ReadAllCategories();
-        List<Product> ReadAllProducts();
-        List<Product> ReadProductByCategory(Category category);
-        void DeleteProduct(Product product);
-        void DeleteCategoryAndAllItsProducts(Category category);
+        void AddNewCategory(ICategory category);
+        void AddNewProduct(IProduct product);
+        List<ICategory> ReadAllCategories();
+        List<IProduct> ReadAllProducts();
+        List<IProduct> ReadProductByCategory(ICategory category);
+        void DeleteProduct(IProduct product);
+        void DeleteCategoryAndAllItsProducts(ICategory category);
 
-        void AddNewAreaOfTables (AreaOfTables area);
-        void AddNewTables(List<Table> tables);
-        List<Table> ReadAllTables();
-        List<AreaOfTables> ReadAllAreas();
-        List<Table> ReadTablesByArea(AreaOfTables area);
-        void DeleteTable(Table table);
-        void DeleteAreaAndAllItsTables(AreaOfTables area);
+        void AddNewAreaOfTables (IAreaOfTables area);
+        void AddNewTables(List<ITable> tables);
+        List<ITable> ReadAllTables();
+        List<IAreaOfTables> ReadAllAreas();
+        List<ITable> ReadTablesByArea(IAreaOfTables area);
+        void DeleteTable(ITable table);
+        void DeleteAreaAndAllItsTables(IAreaOfTables area);
         
     }
 }

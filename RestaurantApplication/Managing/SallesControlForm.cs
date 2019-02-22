@@ -16,7 +16,7 @@ namespace RestaurantApplication
 {
     public partial class SallesControlForm : Form
     {
-        private List<Product> soldProducts = new List<Product>();
+        private List<IProduct> soldProducts = new List<IProduct>();
 
         public SallesControlForm()
         {
@@ -46,7 +46,7 @@ namespace RestaurantApplication
 
         private void closeTheDayButton_Click(object sender, EventArgs e)
         {
-            List<UsedTable> usedTables = new List<UsedTable>();
+            List<IUsedTable> usedTables = new List<IUsedTable>();
             try
             {
                 ReadWriteFiles.ReadProductsOnTableFromFile(usedTables);
