@@ -55,6 +55,7 @@
     <Compile Include="DataAccess\IDataConnection.cs" />
     <Compile Include="DataAccess\SQLiteDataAccess.cs" />
     <Compile Include="DataAccess\SQLServerDataAccess.cs" />
+    <Compile Include="Factory.cs" />
     <Compile Include="FilesAccess\ReadWriteFiles.cs" />
     <Compile Include="Models\AreaOfTables.cs" />
     <Compile Include="Models\Category.cs" />

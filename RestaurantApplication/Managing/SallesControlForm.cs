@@ -1,4 +1,5 @@
-﻿using CodeLibrary.FilesAccess;
+﻿using CodeLibrary;
+using CodeLibrary.FilesAccess;
 using CodeLibrary.Models;
 using System;
 using System.Collections.Generic;
@@ -16,7 +17,7 @@ namespace RestaurantApplication
 {
     public partial class SallesControlForm : Form
     {
-        private List<IProduct> soldProducts = new List<IProduct>();
+        private List<IProduct> soldProducts = Factory.InstanceListProduct();
 
         public SallesControlForm()
         {
@@ -46,7 +47,7 @@ namespace RestaurantApplication
 
         private void closeTheDayButton_Click(object sender, EventArgs e)
         {
-            List<IUsedTable> usedTables = new List<IUsedTable>();
+            List<IUsedTable> usedTables = Factory.InstanceListUsedTable();
             try
             {
                 ReadWriteFiles.ReadProductsOnTableFromFile(usedTables);

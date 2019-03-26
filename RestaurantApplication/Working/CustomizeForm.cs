@@ -1,4 +1,5 @@
-﻿using CodeLibrary.Models;
+﻿using CodeLibrary;
+using CodeLibrary.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,7 +14,7 @@ namespace RestaurantApplication
 {
     public partial class CustomizeForm : Form
     {
-        public Product productInForm = new Product();
+        public IProduct productInForm = Factory.InstanceProduct();
         private ICustomizeForm callingForm;
         public int ammount = 1;
 
@@ -23,7 +24,7 @@ namespace RestaurantApplication
             callingForm = workingMenu;
         }
 
-        public void SendData(Product product)
+        public void SendData(IProduct product)
         {
             productInForm.Name = product.Name;
             productInForm.Price = product.Price;

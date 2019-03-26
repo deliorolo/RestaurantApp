@@ -1,4 +1,5 @@
-﻿using CodeLibrary.Models;
+﻿using CodeLibrary;
+using CodeLibrary.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,7 +14,7 @@ namespace RestaurantApplication
 {
     public partial class PayTotal : Form
     {
-        public IUsedTable tableActual = new UsedTable();
+        public IUsedTable tableActual = Factory.InstanceUsedTable();
         private IPayTotal callingForm;
 
         public PayTotal(IPayTotal workingMenu)

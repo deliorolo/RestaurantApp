@@ -1,4 +1,5 @@
-﻿using CodeLibrary.DataAccess;
+﻿using CodeLibrary;
+using CodeLibrary.DataAccess;
 using CodeLibrary.Models;
 using System;
 using System.Collections.Generic;
@@ -31,7 +32,7 @@ namespace RestaurantApplication
             {
                 if (CheckLimitOfAreas())
                 {
-                    IAreaOfTables area = new AreaOfTables();
+                    IAreaOfTables area = Factory.InstanceAreaOfTables();
                     area.AreaName = newAreaNameTextBox.Text;
                     GlobalConfig.connection.AddNewAreaOfTables(area);
                     newAreaNameTextBox.Text = "";
@@ -122,7 +123,7 @@ namespace RestaurantApplication
         {
             if (CheckValidTablesData())
             {
-                List<ITable> tables = new List<ITable>();
+                List<ITable> tables = Factory.InstanceListTable();
                 int first = 0;
                 int last = 0;
 
@@ -143,9 +144,9 @@ namespace RestaurantApplication
                 {
                     for (int i = first; i <= last; i++)
                     {
-                        Table table = new Table();
+                        ITable table = Factory.InstanceTable();
                         table.NumberOfTable = i;
-                        table.Area = (AreaOfTables)newTableAreaComboBox.SelectedItem;
+                        table.Area = (IAreaOfTables)newTableAreaComboBox.SelectedItem;
                         table.AreaId = table.Area.Id;
 
                         tables.Add(table);
@@ -174,7 +175,7 @@ namespace RestaurantApplication
         private bool CheckIfTablesAreNew(int first, int last)
         {
             bool tablesAreNew = false;
-            List<ITable> allTables = new List<ITable>();
+            List<ITable> allTables = Factory.InstanceListTable();
             allTables = GlobalConfig.connection.ReadAllTables();
 
             int j = 0;
@@ -188,7 +189,7 @@ namespace RestaurantApplication
                 j++;
             }
 
-            foreach (Table t in allTables)
+            foreach (ITable t in allTables)
             {
                 numberOfTablesExisting[k] = t.NumberOfTable;
                 k++;
@@ -245,7 +246,7 @@ namespace RestaurantApplication
 
         private void newTableAreaComboBox_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            AreaOfTables selectedArea = (AreaOfTables)newTableAreaComboBox.SelectedItem;
+            IAreaOfTables selectedArea = (IAreaOfTables)newTableAreaComboBox.SelectedItem;
 
             if (selectedArea != null)
             {
@@ -262,9 +263,9 @@ namespace RestaurantApplication
 
         private void deleteTablesItemButton_Click(object sender, EventArgs e)
         {
-            if (tablesList.SelectedItem is Table)
+            if (tablesList.SelectedItem is ITable)
             {
-                Table selected = (Table)tablesList.SelectedItem;
+                ITable selected = (ITable)tablesList.SelectedItem;
                 DialogResult result = MessageBox.Show($"Are you sure you want to delete the table {selected.DisplayText}?",
                     "Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 
@@ -276,9 +277,9 @@ namespace RestaurantApplication
                     UpdateTablesList(tables);
                 }
             }
-            else if (tablesList.SelectedItem is AreaOfTables)
+            else if (tablesList.SelectedItem is IAreaOfTables)
             {
-                AreaOfTables selected = (AreaOfTables)tablesList.SelectedItem;
+                IAreaOfTables selected = (IAreaOfTables)tablesList.SelectedItem;
                 List<ITable> products = GlobalConfig.connection.ReadTablesByArea(selected);
                 int amountOfTables = products.Count;
 

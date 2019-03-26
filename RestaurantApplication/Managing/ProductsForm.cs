@@ -1,14 +1,9 @@
 ﻿using CodeLibrary.Models;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using CodeLibrary.DataAccess;
+using CodeLibrary;
 
 namespace RestaurantApplication
 {
@@ -30,7 +25,7 @@ namespace RestaurantApplication
             
             if (CheckValidCategoryData())
             {
-                ICategory category = new Category();
+                ICategory category = Factory.InstanceCategory();
                 category.Name = newCategoryNameTextBox.Text;
                 GlobalConfig.connection.AddNewCategory(category);
                 newCategoryNameTextBox.Text = "";
@@ -106,10 +101,10 @@ namespace RestaurantApplication
         {
             if (CheckValidProductData())
             {
-                Product product = new Product();
+                IProduct product = Factory.InstanceProduct();
                 product.Name = newProductNameTextBox.Text;
                 product.Price = decimal.Parse(newProductPriceTextBox.Text);
-                product.Category = (Category)newProductCategoryComboBox.SelectedItem;
+                product.Category = (ICategory)newProductCategoryComboBox.SelectedItem;
                 product.CategoryId = product.Category.Id;
 
                 GlobalConfig.connection.AddNewProduct(product);
@@ -158,7 +153,7 @@ namespace RestaurantApplication
 
         private void newProductCategoryComboBox_SelectionChangeCommitted(object sender, EventArgs e)
         {
-            Category selectedCategory = (Category)newProductCategoryComboBox.SelectedItem;
+            ICategory selectedCategory = (ICategory)newProductCategoryComboBox.SelectedItem;
 
             if (selectedCategory != null)
             {
@@ -171,7 +166,7 @@ namespace RestaurantApplication
         {
             if (productsList.SelectedItem is Product)
             {
-                Product selected = (Product)productsList.SelectedItem;
+                IProduct selected = (IProduct)productsList.SelectedItem;
                 DialogResult result = MessageBox.Show($"Are you sure you want to delete the {selected.DisplayText}?",
                     "Delete", MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
 

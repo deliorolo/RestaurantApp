@@ -1,4 +1,5 @@
-﻿using CodeLibrary.Models;
+﻿using CodeLibrary;
+using CodeLibrary.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,8 +14,8 @@ namespace RestaurantApplication
 {
     public partial class PayPartial : Form
     {
-        public IUsedTable tableActual = new UsedTable();
-        public IUsedTable tablePartial = new UsedTable();
+        public IUsedTable tableActual = Factory.InstanceUsedTable();
+        public IUsedTable tablePartial = Factory.InstanceUsedTable();
         private IPayPartial callingForm;
 
         public PayPartial(IPayPartial workingMenu)
@@ -39,12 +40,12 @@ namespace RestaurantApplication
             decimal totalUnpaid = 0;
             decimal totalPartial = 0;
 
-            foreach (Product product in tableActual.Products)
+            foreach (IProduct product in tableActual.Products)
             {
                 totalUnpaid += product.Price;
             }
 
-            foreach (Product product in tablePartial.Products)
+            foreach (IProduct product in tablePartial.Products)
             {
                 totalPartial += product.Price;
             }
@@ -73,7 +74,7 @@ namespace RestaurantApplication
         {
             if (unpaidListBox.SelectedItem != null)
             {
-                Product moved = (Product)unpaidListBox.SelectedItem;
+                IProduct moved = (IProduct)unpaidListBox.SelectedItem;
                 tablePartial.Products.Add(moved);
                 tableActual.Products.Remove(moved);
 
@@ -85,7 +86,7 @@ namespace RestaurantApplication
         {
             if (partialListBox.SelectedItem != null)
             {
-                Product moved = (Product)partialListBox.SelectedItem;
+                IProduct moved = (IProduct)partialListBox.SelectedItem;
                 tableActual.Products.Add(moved);
                 tablePartial.Products.Remove(moved);
 
