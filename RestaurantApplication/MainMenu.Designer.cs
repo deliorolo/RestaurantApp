@@ -35,7 +35,7 @@
             this.manageTablesButton = new System.Windows.Forms.Button();
             this.workingMenuButton = new System.Windows.Forms.Button();
             this.quitMainMenubutton = new System.Windows.Forms.Button();
-            this.sallesControlButton = new System.Windows.Forms.Button();
+            this.salesControlButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // byDelioRoloLabel
@@ -105,16 +105,16 @@
             this.quitMainMenubutton.UseVisualStyleBackColor = true;
             this.quitMainMenubutton.Click += new System.EventHandler(this.quitMainMenubutton_Click);
             // 
-            // sallesControlButton
+            // salesControlButton
             // 
-            this.sallesControlButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.sallesControlButton.Location = new System.Drawing.Point(19, 243);
-            this.sallesControlButton.Name = "sallesControlButton";
-            this.sallesControlButton.Size = new System.Drawing.Size(249, 47);
-            this.sallesControlButton.TabIndex = 7;
-            this.sallesControlButton.Text = "Salles Control";
-            this.sallesControlButton.UseVisualStyleBackColor = true;
-            this.sallesControlButton.Click += new System.EventHandler(this.sallesControlButton_Click);
+            this.salesControlButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.salesControlButton.Location = new System.Drawing.Point(19, 243);
+            this.salesControlButton.Name = "salesControlButton";
+            this.salesControlButton.Size = new System.Drawing.Size(249, 47);
+            this.salesControlButton.TabIndex = 7;
+            this.salesControlButton.Text = "Sales Control";
+            this.salesControlButton.UseVisualStyleBackColor = true;
+            this.salesControlButton.Click += new System.EventHandler(this.salesControlButton_Click);
             // 
             // MainMenu
             // 
@@ -122,7 +122,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(575, 309);
-            this.Controls.Add(this.sallesControlButton);
+            this.Controls.Add(this.salesControlButton);
             this.Controls.Add(this.quitMainMenubutton);
             this.Controls.Add(this.workingMenuButton);
             this.Controls.Add(this.manageTablesButton);
@@ -146,6 +146,6 @@
         private System.Windows.Forms.Button manageTablesButton;
         private System.Windows.Forms.Button workingMenuButton;
         private System.Windows.Forms.Button quitMainMenubutton;
-        private System.Windows.Forms.Button sallesControlButton;
+        private System.Windows.Forms.Button salesControlButton;
     }
 }

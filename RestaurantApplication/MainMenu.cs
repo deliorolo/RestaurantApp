@@ -1,11 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace RestaurantApplication
@@ -52,14 +45,14 @@ namespace RestaurantApplication
             workingMenuForm.ShowDialog();
         }
 
-        private void sallesControlButton_Click(object sender, EventArgs e)
+        private void salesControlButton_Click(object sender, EventArgs e)
         {
-            SallesControlForm sallesControlFrom = new SallesControlForm();
-            sallesControlFrom.FormBorderStyle = FormBorderStyle.FixedDialog;
-            sallesControlFrom.MaximizeBox = false;
-            sallesControlFrom.MinimizeBox = false;
-            sallesControlFrom.StartPosition = FormStartPosition.CenterScreen;
-            sallesControlFrom.ShowDialog();
+            SalesControlForm salesControlFrom = new SalesControlForm();
+            salesControlFrom.FormBorderStyle = FormBorderStyle.FixedDialog;
+            salesControlFrom.MaximizeBox = false;
+            salesControlFrom.MinimizeBox = false;
+            salesControlFrom.StartPosition = FormStartPosition.CenterScreen;
+            salesControlFrom.ShowDialog();
         }
 
         private void quitMainMenubutton_Click(object sender, EventArgs e)

@@ -87,11 +87,11 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Managing\SallesControlForm.cs">
+    <Compile Include="Managing\SalesControlForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Managing\SallesControlForm.Designer.cs">
-      <DependentUpon>SallesControlForm.cs</DependentUpon>
+    <Compile Include="Managing\SalesControlForm.Designer.cs">
+      <DependentUpon>SalesControlForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Managing\TablesForm.cs">
       <SubType>Form</SubType>
@@ -129,8 +129,8 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <EmbeddedResource Include="Managing\SallesControlForm.resx">
-      <DependentUpon>SallesControlForm.cs</DependentUpon>
+    <EmbeddedResource Include="Managing\SalesControlForm.resx">
+      <DependentUpon>SalesControlForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Managing\TablesForm.resx">
       <DependentUpon>TablesForm.cs</DependentUpon>

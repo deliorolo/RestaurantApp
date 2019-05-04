@@ -1,6 +1,6 @@
 ﻿namespace RestaurantApplication
 {
-    partial class SallesControlForm
+    partial class SalesControlForm
     {
         /// <summary>
         /// Required designer variable.
@@ -28,25 +28,25 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SallesControlForm));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SalesControlForm));
             this.todaysSaleGroupBox = new System.Windows.Forms.GroupBox();
-            this.sallesControlTotalLabel = new System.Windows.Forms.Label();
-            this.sallesControlEuroLabel = new System.Windows.Forms.Label();
+            this.salesControlTotalLabel = new System.Windows.Forms.Label();
+            this.salesControlEuroLabel = new System.Windows.Forms.Label();
             this.totalTextBox = new System.Windows.Forms.TextBox();
             this.soldProductsListBox = new System.Windows.Forms.ListBox();
             this.closeTheDayButton = new System.Windows.Forms.Button();
             this.historicGroupBox = new System.Windows.Forms.GroupBox();
             this.productsSoldButton = new System.Windows.Forms.Button();
             this.moneyIncomeButton = new System.Windows.Forms.Button();
-            this.quitSallesControlButton = new System.Windows.Forms.Button();
+            this.quitSalesControlButton = new System.Windows.Forms.Button();
             this.todaysSaleGroupBox.SuspendLayout();
             this.historicGroupBox.SuspendLayout();
             this.SuspendLayout();
             // 
             // todaysSaleGroupBox
             // 
-            this.todaysSaleGroupBox.Controls.Add(this.sallesControlTotalLabel);
-            this.todaysSaleGroupBox.Controls.Add(this.sallesControlEuroLabel);
+            this.todaysSaleGroupBox.Controls.Add(this.salesControlTotalLabel);
+            this.todaysSaleGroupBox.Controls.Add(this.salesControlEuroLabel);
             this.todaysSaleGroupBox.Controls.Add(this.totalTextBox);
             this.todaysSaleGroupBox.Controls.Add(this.soldProductsListBox);
             this.todaysSaleGroupBox.Font = new System.Drawing.Font("Georgia", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -58,23 +58,23 @@
             this.todaysSaleGroupBox.TabStop = false;
             this.todaysSaleGroupBox.Text = "Today\'s Sale";
             // 
-            // sallesControlTotalLabel
+            // salesControlTotalLabel
             // 
-            this.sallesControlTotalLabel.AutoSize = true;
-            this.sallesControlTotalLabel.Location = new System.Drawing.Point(6, 386);
-            this.sallesControlTotalLabel.Name = "sallesControlTotalLabel";
-            this.sallesControlTotalLabel.Size = new System.Drawing.Size(54, 23);
-            this.sallesControlTotalLabel.TabIndex = 13;
-            this.sallesControlTotalLabel.Text = "Total";
+            this.salesControlTotalLabel.AutoSize = true;
+            this.salesControlTotalLabel.Location = new System.Drawing.Point(6, 386);
+            this.salesControlTotalLabel.Name = "salesControlTotalLabel";
+            this.salesControlTotalLabel.Size = new System.Drawing.Size(54, 23);
+            this.salesControlTotalLabel.TabIndex = 13;
+            this.salesControlTotalLabel.Text = "Total";
             // 
-            // sallesControlEuroLabel
+            // salesControlEuroLabel
             // 
-            this.sallesControlEuroLabel.AutoSize = true;
-            this.sallesControlEuroLabel.Location = new System.Drawing.Point(382, 383);
-            this.sallesControlEuroLabel.Name = "sallesControlEuroLabel";
-            this.sallesControlEuroLabel.Size = new System.Drawing.Size(22, 23);
-            this.sallesControlEuroLabel.TabIndex = 12;
-            this.sallesControlEuroLabel.Text = "€";
+            this.salesControlEuroLabel.AutoSize = true;
+            this.salesControlEuroLabel.Location = new System.Drawing.Point(382, 383);
+            this.salesControlEuroLabel.Name = "salesControlEuroLabel";
+            this.salesControlEuroLabel.Size = new System.Drawing.Size(22, 23);
+            this.salesControlEuroLabel.TabIndex = 12;
+            this.salesControlEuroLabel.Text = "€";
             // 
             // totalTextBox
             // 
@@ -138,31 +138,31 @@
             this.moneyIncomeButton.UseVisualStyleBackColor = true;
             this.moneyIncomeButton.Click += new System.EventHandler(this.moneyIncomeButton_Click);
             // 
-            // quitSallesControlButton
+            // quitSalesControlButton
             // 
-            this.quitSallesControlButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.quitSallesControlButton.ForeColor = System.Drawing.Color.DarkRed;
-            this.quitSallesControlButton.Location = new System.Drawing.Point(583, 442);
-            this.quitSallesControlButton.Name = "quitSallesControlButton";
-            this.quitSallesControlButton.Size = new System.Drawing.Size(105, 47);
-            this.quitSallesControlButton.TabIndex = 14;
-            this.quitSallesControlButton.Text = "Quit";
-            this.quitSallesControlButton.UseVisualStyleBackColor = true;
-            this.quitSallesControlButton.Click += new System.EventHandler(this.quitSallesControlButton_Click);
+            this.quitSalesControlButton.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.quitSalesControlButton.ForeColor = System.Drawing.Color.DarkRed;
+            this.quitSalesControlButton.Location = new System.Drawing.Point(583, 442);
+            this.quitSalesControlButton.Name = "quitSalesControlButton";
+            this.quitSalesControlButton.Size = new System.Drawing.Size(105, 47);
+            this.quitSalesControlButton.TabIndex = 14;
+            this.quitSalesControlButton.Text = "Quit";
+            this.quitSalesControlButton.UseVisualStyleBackColor = true;
+            this.quitSalesControlButton.Click += new System.EventHandler(this.quitSalesControlButton_Click);
             // 
-            // SallesControlForm
+            // SalesControlForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(706, 507);
-            this.Controls.Add(this.quitSallesControlButton);
+            this.Controls.Add(this.quitSalesControlButton);
             this.Controls.Add(this.historicGroupBox);
             this.Controls.Add(this.closeTheDayButton);
             this.Controls.Add(this.todaysSaleGroupBox);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Name = "SallesControlForm";
-            this.Text = "Salles Control";
+            this.Name = "SalesControlForm";
+            this.Text = "Sales Control";
             this.todaysSaleGroupBox.ResumeLayout(false);
             this.todaysSaleGroupBox.PerformLayout();
             this.historicGroupBox.ResumeLayout(false);
@@ -175,12 +175,12 @@
         private System.Windows.Forms.GroupBox todaysSaleGroupBox;
         private System.Windows.Forms.TextBox totalTextBox;
         private System.Windows.Forms.ListBox soldProductsListBox;
-        private System.Windows.Forms.Label sallesControlEuroLabel;
-        private System.Windows.Forms.Label sallesControlTotalLabel;
+        private System.Windows.Forms.Label salesControlEuroLabel;
+        private System.Windows.Forms.Label salesControlTotalLabel;
         private System.Windows.Forms.Button closeTheDayButton;
         private System.Windows.Forms.GroupBox historicGroupBox;
         private System.Windows.Forms.Button moneyIncomeButton;
         private System.Windows.Forms.Button productsSoldButton;
-        private System.Windows.Forms.Button quitSallesControlButton;
+        private System.Windows.Forms.Button quitSalesControlButton;
     }
 }

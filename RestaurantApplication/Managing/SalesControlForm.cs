@@ -3,23 +3,19 @@ using CodeLibrary.FilesAccess;
 using CodeLibrary.Models;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
 using System.Diagnostics;
-using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace RestaurantApplication
 {
-    public partial class SallesControlForm : Form
+    public partial class SalesControlForm : Form
     {
         private List<IProduct> soldProducts = Factory.InstanceListProduct();
 
-        public SallesControlForm()
+        public SalesControlForm()
         {
             InitializeComponent();
 
@@ -40,7 +36,7 @@ namespace RestaurantApplication
             totalTextBox.Text = soldProducts.Sum(x => x.Price).ToString();
         }
 
-        private void quitSallesControlButton_Click(object sender, EventArgs e)
+        private void quitSalesControlButton_Click(object sender, EventArgs e)
         {
             this.Close();
         }
